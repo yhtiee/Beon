@@ -1,16 +1,49 @@
 "use client";
 // import Image from 'next/image'
-import { useState } from "react";
+import * as fcl from "@onflow/fcl";
+import { FaRegBuilding } from "react-icons/fa";
+import { RiAccountCircleLine } from "react-icons/ri";
+
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { featuresList } from "@/constants";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [modal, setModal] = useState(false);
+  const [user, setUser] = useState({ loggedIn: null });
+
+  fcl
+    .config()
+    .put("flow.network", "testnet")
+    .put("app.detail.title", "Beon Flow Project")
+    .put("app.detail.icon", "https://i.imgur.com/r23Zhvu.png")
+    .put("accessNode.api", process.env.NEXT_PUBLIC_ACCESS_NODE_API)
+    .put("discovery.wallet", process.env.NEXT_PUBLIC_DISCOVERY_WALLET)
+    .put("0xFlowToken", process.env.NEXT_PUBLIC_CONTRACT_PROFILE);
+  // anywhere on the page
+  // fcl.unauthenticate();
+
+  useEffect(() => fcl.currentUser.subscribe(setUser), []);
+
+  useEffect(() => {
+    const handleClick = () => {
+      setModal(false);
+    };
+
+    document.addEventListener("click", handleClick);
+    document.addEventListener("scroll", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("scroll", handleClick);
+    };
+  }, [modal]);
 
   return (
     <section className="flex flex-col items-center justify-center relative">
       <div className="bg_gradient absolute w-[70vw] bg_gradient_animate" />
-      <article className="border-[#00ef8b] border-solid border-2 w-[80%] py-7 text-center">
+      <article className="border-[#00ef8b] border-solid border-2 w-[80%] py-7 text-center z-10">
         <h1 className="hero_gradient-1 text-[56px] font-[700] font-hero leading-[68px]">
           Identify the ideal Brand
           <span className="block">Ambassadors for your company.</span>
@@ -20,8 +53,16 @@ export default function Home() {
           generate leads, and drive sales.
         </p>
         <div className="flex flex-row justify-center">
-          <Button type="Login" style="primary" />
-          <Button type="Sign Up" style="secondary" />
+          <Button
+            type="Login"
+            style="primary"
+            onClick={() => setModal(!modal)}
+          />
+          <Button
+            type="Sign Up"
+            style="secondary"
+            onClick={() => setModal(!modal)}
+          />
         </div>
       </article>
 
@@ -74,6 +115,26 @@ export default function Home() {
         </div>
       </section>
 
+      {modal && (
+        <div className="bg-[#242424] w-[550px] h-[373px] flex flex-col items-center justify-center rounded-[10px] p-10 absolute top-3 left-[30%] z-20">
+          <div className="flex flex-row gap-6 justify-center mb-6">
+            <div className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center">
+              <FaRegBuilding size={80} color="#00ef8b" />
+              <p className="pt-5">Flow Project</p>
+            </div>
+            <div className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center">
+              <RiAccountCircleLine size={80} color="#00ef8b" />
+              <p className="pt-5">Ambassador</p>
+            </div>
+          </div>
+          <hr className="w-[218px] h-[1px]" />
+          <div className="mt-5">
+            Already have an account?{" "}
+            <span className="text-[#00ef8b] font-semibold">Login</span>
+          </div>
+        </div>
+      )}
+
       <section className="bg-[#080708] w-[100%] h-[279px] flex flex-col items-center justify-center relative">
         <div className="border_animate absolute" />
         <h1 className="text-[#fff] font-hero text-[32px] font-bold">
@@ -86,7 +147,7 @@ export default function Home() {
           <input
             className="rounded-[5px] w-[453px] h-[56px] p-3 focus:outline-none"
             type="text"
-            value={email}
+            // value={email}
             placeholder="Enter your email address"
           />
           <Button type="Get Updates" style="primary" />
