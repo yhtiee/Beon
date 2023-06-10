@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         hero: ["Unbounded", "system-ui", "sans-serif"],
       },
+      colors: {
+        signIn: "rgba(255, 225, 225, 0.5)",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

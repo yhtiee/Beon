@@ -1,8 +1,8 @@
 "use client";
-// import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 import { FaRegBuilding } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
@@ -130,16 +130,28 @@ export default function Home() {
               tag="brand"
               className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
             >
-              <FaRegBuilding size={80} color="#00ef8b" />
-              <p className="pt-5">Flow Project</p>
+              <Link
+                href={`/${accType}/sign-up`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FaRegBuilding size={80} color="#00ef8b" />
+                <p className="pt-5">Flow Project</p>
+              </Link>
             </div>
             <div
               onClick={handleAccType}
               tag="ambassador"
               className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
             >
-              <RiAccountCircleLine size={80} color="#00ef8b" />
-              <p className="pt-5">Ambassador</p>
+              <Link
+                href={`/${accType}/sign-up`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <RiAccountCircleLine size={80} color="#00ef8b" />
+                <p className="pt-5">Ambassador</p>
+              </Link>
             </div>
           </div>
           <hr className="w-[218px] h-[1px]" />
