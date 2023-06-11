@@ -15,7 +15,6 @@ body {
     radial-gradient(at 23% 20%, #bd00ff 0px, transparent 70%);
 
   filter: blur(170.5px);
-  opacity: 0.26;
   height: 50%;
   top: 4rem;
 }
@@ -43,7 +42,7 @@ body {
   @apply rounded-[5px] w-[95%] h-[46px] bg-[#2F2F2F] border-[1px] border-[#CBD2E0] p-[6px] mb-2;
 }
 .input_btn {
-  @apply rounded-[5px] w-[95%] h-[46px] bg-[#00ef8b] text-black mt-6;
+  @apply rounded-[5px] w-[95%] h-[46px]   mt-6;
 }
 
 /* Custom Gradient */
