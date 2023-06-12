@@ -2,6 +2,7 @@
 import * as fcl from "@onflow/fcl";
 import { FaRegBuilding } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
+import { AiFillCloseCircle } from "react-icons/ai";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
@@ -50,7 +51,7 @@ export default function Home() {
 
   return (
     <section className="flex flex-col items-center justify-center relative">
-      <div className="bg_gradient absolute w-[70vw] bg_gradient_animate" />
+      <div className="bg_gradient opacity-30 absolute w-[70vw] bg_gradient_animate" />
       <article className="border-[#00ef8b] border-solid border-2 w-[80%] py-7 text-center z-10">
         <h1 className="hero_gradient-1 text-[56px] font-[700] font-hero leading-[68px]">
           Identify the ideal Brand
@@ -81,7 +82,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-row justify-center my-[90px]">
+        <div className="flex flex-row justify-center mt-[90px]">
           <div className="flex flex-col w-[fit-content] pt-5">
             <div className="border-[#00ef8b] border-[2px] border-solid rounded-full w-[40px] h-[40px] text-[24px] flex flex-row justify-center items-center">
               01
@@ -120,10 +121,16 @@ export default function Home() {
       </section>
 
       {modal && (
-        <div className="bg-[#242424] w-[550px] h-[373px] flex flex-col items-center justify-center rounded-[10px] p-10 absolute top-3 left-[30%] z-20">
-          <h2 className="font-hero text-[20px] font-semibold mb-5">
+        <div className="bg-[#242424] w-[550px] h-[400px] flex flex-col items-center justify-center rounded-[10px] p-10 absolute top-3 left-[30%] z-20 border-[1px] border-[#00ef8b]">
+          <h2 className="font-hero text-[20px] font-semibold mb-5 mt-3">
             Sign Up as
           </h2>
+          <AiFillCloseCircle
+            size={30}
+            color="#00ef8b"
+            className="absolute top-4 right-4 text-white cursor-pointer"
+          />
+
           <div className="flex flex-row gap-6 justify-center mb-6">
             <div
               onClick={handleAccType}
@@ -163,6 +170,7 @@ export default function Home() {
       )}
 
       <section className="bg-[#080708] w-[100%] h-[279px] flex flex-col items-center justify-center relative">
+        <div className="bg_gradient opacity-100 absolute w-[70vw] bg_gradient_animate" />
         <div className="border_animate absolute" />
         <h1 className="text-[#fff] font-hero text-[32px] font-bold">
           Get the Latest <span className="text-[#00ef8b]">Beon</span> Updates
