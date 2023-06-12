@@ -7,6 +7,7 @@ const Footer = () => {
       <Image
         className="rounded-full"
         height={30}
+        alt="flow blockchain logo"
         width={30}
         src="/images/flow-logo.png"
       ></Image>
