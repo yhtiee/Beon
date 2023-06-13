@@ -1,8 +1,8 @@
 "use client";
-// import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 import { FaRegBuilding } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
@@ -10,6 +10,7 @@ import { featuresList } from "@/constants";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [accType, setAccType] = useState("");
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({ loggedIn: null });
 
@@ -23,6 +24,13 @@ export default function Home() {
     .put("0xFlowToken", process.env.NEXT_PUBLIC_CONTRACT_PROFILE);
   // anywhere on the page
   // fcl.unauthenticate();
+
+  const handleAccType = (e) => {
+    fcl.signUp;
+    if (e.currentTarget.attributes["tag"].value === "brand") {
+      setAccType("brand");
+    } else setAccType("ambassador");
+  };
 
   useEffect(() => fcl.currentUser.subscribe(setUser), []);
 
@@ -53,11 +61,7 @@ export default function Home() {
           generate leads, and drive sales.
         </p>
         <div className="flex flex-row justify-center">
-          <Button
-            type="Login"
-            style="primary"
-            onClick={() => setModal(!modal)}
-          />
+          <Button type="Login" style="primary" onClick={fcl.logIn} />
           <Button
             type="Sign Up"
             style="secondary"
@@ -117,14 +121,37 @@ export default function Home() {
 
       {modal && (
         <div className="bg-[#242424] w-[550px] h-[373px] flex flex-col items-center justify-center rounded-[10px] p-10 absolute top-3 left-[30%] z-20">
+          <h2 className="font-hero text-[20px] font-semibold mb-5">
+            Sign Up as
+          </h2>
           <div className="flex flex-row gap-6 justify-center mb-6">
-            <div className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center">
-              <FaRegBuilding size={80} color="#00ef8b" />
-              <p className="pt-5">Flow Project</p>
+            <div
+              onClick={handleAccType}
+              tag="brand"
+              className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
+            >
+              <Link
+                href={`/${accType}/sign-up`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FaRegBuilding size={80} color="#00ef8b" />
+                <p className="pt-5">Flow Project</p>
+              </Link>
             </div>
-            <div className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center">
-              <RiAccountCircleLine size={80} color="#00ef8b" />
-              <p className="pt-5">Ambassador</p>
+            <div
+              onClick={handleAccType}
+              tag="ambassador"
+              className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
+            >
+              <Link
+                href={`/${accType}/sign-up`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <RiAccountCircleLine size={80} color="#00ef8b" />
+                <p className="pt-5">Ambassador</p>
+              </Link>
             </div>
           </div>
           <hr className="w-[218px] h-[1px]" />

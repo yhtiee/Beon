@@ -1,13 +1,18 @@
+"use client";
+
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { usePathname } from "next/navigation";
 
 export const metadata = {
   title: "Beon",
-  description: "Identify ideal ambassadors for your project's niche.",
+  description: "Identify ideal ambassadors for your brand's niche.",
 };
 
 export default function RootLayout({ children }) {
+  const pathName = usePathname();
+  const isLayoutNeeded = pathName === "/ambassador/sign-up";
   return (
     <html lang="en">
       <head>
@@ -24,7 +29,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <main className="app">
-          <Nav />
+          {!isLayoutNeeded && <Nav />}
           {children}
           <Footer />
         </main>
