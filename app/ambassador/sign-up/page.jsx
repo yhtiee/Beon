@@ -1,5 +1,5 @@
 "use client";
-"use client";
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { BsExclamationCircle } from "react-icons/bs";
@@ -24,6 +24,10 @@ const page = () => {
   const handleNext = (e) => {
     e.preventDefault();
     setPage(2);
+  };
+
+  const handleSubmit = (e) => {
+    // e.preventDefault();
   };
 
   return (
@@ -142,9 +146,13 @@ const page = () => {
                 type="text"
                 placeholder="https://www.linkedin.com/in/john-doe"
               />
-              <button className="input_btn bg-[#00ef8b] text-black font-semibold">
+              <Link
+                onClick={handleSubmit}
+                href="/ambassador/account"
+                className="input_btn bg-[#00ef8b] text-black font-semibold"
+              >
                 Proceed
-              </button>
+              </Link>
               <button
                 onClick={handleBack}
                 className="flex_col justify-center items-center  input_btn bg-transparent text-white font-semibold"
