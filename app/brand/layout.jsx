@@ -3,9 +3,9 @@
 import SideBar from "@/components/SideBar";
 import { usePathname } from "next/navigation";
 
-export default function AmbassadorLayout({ children }) {
+export default function ProjectLayout({ children }) {
   const pathName = usePathname();
-  const noSideBar = ["/ambassador/sign-up"];
+  const noSideBar = ["/brand/sign-up"];
   const isSideBarNeeded = noSideBar.includes(pathName);
 
   return (

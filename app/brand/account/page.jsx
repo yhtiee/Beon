@@ -1,10 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { VscUnverified } from "react-icons/vsc";
-import { MdAddCircleOutline } from "react-icons/md";
 
-const ambassadorAccount = () => {
+import { RiArrowDownSLine, RiCloseLine } from "react-icons/ri";
+import { niche } from "@/constants";
+
+const brandAccount = () => {
+  const [showNicheOps, setShowNicheOps] = useState(false);
+  const [selectedNicheOps, setSelectedNicheOps] = useState([]);
+
+  /* Handles adding and removing Niche options */
+  const handleClickedOps = (e) => {
+    const option = e.currentTarget.attributes["tag"].value;
+    if (selectedNicheOps.includes(option)) {
+      const newOps = selectedNicheOps.filter((item) => item !== option);
+      setSelectedNicheOps(newOps);
+    } else setSelectedNicheOps([...selectedNicheOps, option]);
+
+    setShowNicheOps(false);
+  };
+
   return (
     // Account Container
     <div className="dashboard_gradient border-[1px] my-7 p-5 rounded-md border-[#00ef8b] w-[94%]">
@@ -21,8 +40,8 @@ const ambassadorAccount = () => {
         </div>
       </div>
 
-      {/* User main Avatar, Name, Title */}
-      <div className="flex_row my-6">
+      {/* User main Avatar and Name */}
+      <div className="flex_row items-center my-6">
         <div className="relative mr-4">
           {/* <Image></Image> */}
           <div className="rounded-full w-[104px] h-[104px] bg-[#D9D9D9]" />
@@ -30,21 +49,20 @@ const ambassadorAccount = () => {
         </div>
         <div>
           <div className="flex_row items-center">
-            <h1 className="text-[20px] font-semibold mr-2">John Doe</h1>
+            <h1 className="text-[20px] font-semibold mr-2">WhaleFond</h1>
             <VscUnverified size={20} color="#FFB800" />
           </div>
-          <p className="text-[#636363] mb-2">Community Manager</p>
-          <div className="bg-[#D9D9D9] w-[fit-content]  py-1 px-2 rounded-2xl">
-            <p className="text-black text-[14px]">Change Photo</p>
+          <div className="bg-[#D9D9D9] w-[fit-content] mt-2 py-1 px-2 rounded-2xl">
+            <p className="text-black text-[14px]">Change Logo</p>
           </div>
         </div>
       </div>
 
-      {/* User Personal Information */}
+      {/* Company Information */}
       <div className="border-[1px] border-[#ebebeb] rounded-md my-6 p-8">
         <div className="flex_row justify-between my-6">
           <p className="text-signIn font-semibold text-[16px]">
-            Personal Information
+            Project Information
           </p>
           <div className="flex_row text-[14px] items-center">
             <p className="text-[#00ef8b] mr-2">Edit</p>
@@ -55,33 +73,33 @@ const ambassadorAccount = () => {
         <form>
           <div className="flex_row justify-between w-[100%]">
             <div className="w-[47%]">
-              <label htmlFor="firstName" className="text-signIn">
-                First Name
+              <label htmlFor="projectName" className="text-signIn">
+                Project Name
               </label>
               <input
                 className="input_text"
-                name="firstName"
+                name="projectName"
                 // value={ambassador.twitter}
                 // onChange={(e) =>
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="John"
+                placeholder="WhaleFond"
               />
             </div>
             <div className="w-[47%]">
-              <label htmlFor="lastName" className="text-signIn">
-                Last Name
+              <label htmlFor="website" className="text-signIn">
+                Website
               </label>
               <input
                 className="input_text"
-                name="lastName"
+                name="website"
                 // value={ambassador.twitter}
                 // onChange={(e) =>
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="Doe"
+                placeholder="https://www.whale-fond.xyz"
               />
             </div>
           </div>
@@ -98,31 +116,72 @@ const ambassadorAccount = () => {
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="johndoe1@gmail.com"
+                placeholder="operation@whalefond.mail"
               />
             </div>
             <div className="w-[47%]">
-              <label htmlFor="title" className="text-signIn">
-                Title
+              <label htmlFor="whitePaper" className="text-signIn">
+                White Paper
               </label>
               <input
                 className="input_text"
-                name="title"
+                name="whitePaper"
                 // value={ambassador.twitter}
                 // onChange={(e) =>
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="Community Manager"
+                placeholder="https://www.whale-fond.xyz/white-paper"
               />
             </div>
           </div>
+          <div className="relative w-[100%]">
+            <p className="text-signIn">Niche</p>
+            <div className="input_text px-1 flex_row items-center">
+              {selectedNicheOps.length > 0 ? (
+                selectedNicheOps.map((option, i) => (
+                  <div
+                    key={i}
+                    className="bg-[#272727] border-[1px] border-[#00ef8b] p-1 rounded-sm mr-2 flex_row items-center"
+                  >
+                    <p>{option}</p>
+                    <div className="border-l-[1px] cursor-pointer ml-3 pl-1">
+                      <RiCloseLine tag={option} onClick={handleClickedOps} />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-signIn">Select your niche</p>
+              )}
+              <div className="cursor-pointer h-[90%] flex_row items-center ml-auto">
+                <RiArrowDownSLine
+                  onClick={() => setShowNicheOps(!showNicheOps)}
+                />
+              </div>
+            </div>
+            {showNicheOps && (
+              <div className="rounded-[5px] w-[95%] h-[86px] bg-[#2F2F2F] border-[1px] border-[#00ef8b] px-[12px] p-[6px] absolute mt-1 overflow-y-scroll">
+                {niche.map((item, i) => (
+                  <p
+                    className={`${
+                      selectedNicheOps.includes(item) && "text-[#00ef8b]"
+                    } cursor-pointer hover:text-[#00ef8b]`}
+                    key={i}
+                    tag={item}
+                    onClick={handleClickedOps}
+                  >
+                    {item}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
           <div>
-            <label htmlFor="bio" className="text-signIn">
-              Bio
+            <label htmlFor="desc" className="text-signIn">
+              Description
             </label>
             <textarea
-              name="bio"
+              name="desc"
               className=" rounded-[5px] bg-[#2F2F2F] border-[1px] border-[#CBD2E0] p-[6px] mb-2 focus:border-[#00ef8b] focus:outline-none w-[100%] h-[209px]"
             ></textarea>
           </div>
@@ -158,45 +217,29 @@ const ambassadorAccount = () => {
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="https://www.twitter.com/johndoe"
+                placeholder="https://www.twitter.com/whalefond"
               />
             </div>
             <div className="w-[47%]">
-              <label htmlFor="instagram" className="text-signIn">
+              <label htmlFor="discord" className="text-signIn">
                 Instagram
               </label>
               <input
                 className="input_text"
-                name="instagram"
+                name="discord"
                 // value={ambassador.twitter}
                 // onChange={(e) =>
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="https://www.linked.in/johndoe"
+                placeholder="Whalefond Server"
               />
             </div>
           </div>
         </form>
       </div>
-
-      <section className="border-[1px] border-[#ebebeb] rounded-md my-6 p-8">
-        <div className="flex_row justify-between my-6">
-          <p className="text-signIn font-semibold text-[16px]">
-            Work Experience
-          </p>
-          <div className="flex_row text-[14px] items-center">
-            <p className="text-[#00ef8b] mr-2">Add</p>
-            <MdAddCircleOutline color="#00ef8b" />
-          </div>
-        </div>
-
-        <div className="flex_row items-center py-4 justify-center text-signIn text-[24px] font-semibold">
-          <h2>No Work Experience</h2>
-        </div>
-      </section>
     </div>
   );
 };
 
-export default ambassadorAccount;
+export default brandAccount;
