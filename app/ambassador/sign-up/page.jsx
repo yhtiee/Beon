@@ -1,5 +1,5 @@
 "use client";
-"use client";
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { BsExclamationCircle } from "react-icons/bs";
@@ -7,24 +7,37 @@ import { BsExclamationCircle } from "react-icons/bs";
 const page = () => {
   const [page, setPage] = useState(1);
 
+  const [ambassador, setAmbassador] = useState({
+    firstName: "",
+    lastName: "",
+    twitter: "",
+    instagram: "",
+  });
+
+  /* Handles the btn to previous page(1) */
   const handleBack = (e) => {
     e.preventDefault();
     setPage(1);
   };
 
+  /* Handles the btn to next page(2) */
   const handleNext = (e) => {
     e.preventDefault();
     setPage(2);
   };
 
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+  };
+
   return (
     <>
+      {/* Form Page 1 */}
       <section
         className={`${
           page == 2 ? "hidden" : "flex flex-row"
         }  items-center justify-center my-12 relative`}
       >
-        <div className="bg_gradient absolute bottom-0 w-[70vw] bg_gradient_animate z-10" />
         <div className="sign_in_wrapper_gradient p-10 gap-10 w-[42vw] h-[520px]">
           <div className="flex flex-row justify-between items-center mb-6">
             <p className="text-signIn font-semibold text-[16px]">
@@ -57,6 +70,11 @@ const page = () => {
             <input
               className="input_text"
               name="firstName"
+              required
+              value={ambassador.firstName}
+              onChange={(e) =>
+                setAmbassador({ ...ambassador, firstName: e.target.value })
+              }
               type="text"
               placeholder="John"
             />
@@ -66,23 +84,31 @@ const page = () => {
             <input
               className="input_text"
               name="lastName"
+              required
+              value={ambassador.lastName}
+              onChange={(e) =>
+                setAmbassador({ ...ambassador, lastName: e.target.value })
+              }
               type="text"
               placeholder="Doe"
             />
-            <button onClick={handleNext} className="input_btn">
+            <button
+              onClick={handleNext}
+              className="input_btn bg-[#00ef8b] text-black font-semibold"
+            >
               Next
             </button>
           </form>
         </div>
       </section>
 
+      {/* Form Page 2 */}
       {page == 2 && (
         <section
           className={`${
             page == 1 ? "hidden" : "flex flex-row"
           } items-center justify-center my-12 relative`}
         >
-          <div className="bg_gradient absolute bottom-0 w-[70vw] bg_gradient_animate z-10" />
           <div className="sign_in_wrapper_gradient p-10 gap-10 w-[42vw] h-[420px]">
             <div className="flex flex-row justify-between items-center mb-6">
               <p className="text-signIn font-semibold text-[16px]">
@@ -100,8 +126,12 @@ const page = () => {
               <input
                 className="input_text"
                 name="twitter"
+                value={ambassador.twitter}
+                onChange={(e) =>
+                  setAmbassador({ ...ambassador, twitter: e.target.value })
+                }
                 type="text"
-                placeholder="http://twitter.com/Flow_Project"
+                placeholder="https://twitter.com/johndoe"
               />
               <label htmlFor="instagram" className="text-signIn mt-3">
                 Instagram
@@ -109,10 +139,27 @@ const page = () => {
               <input
                 className="input_text"
                 name="instagram"
+                value={ambassador.instagram}
+                onChange={(e) =>
+                  setAmbassador({ ...ambassador, instagram: e.target.value })
+                }
                 type="text"
-                placeholder="https://linked.In/Flow_Project"
+                placeholder="https://www.linkedin.com/in/john-doe"
               />
-              <button className="input_btn">Proceed</button>
+              <Link
+                onClick={handleSubmit}
+                href="/ambassador/account"
+                className="input_btn bg-[#00ef8b] text-black font-semibold"
+              >
+                Proceed
+              </Link>
+              <button
+                onClick={handleBack}
+                className="flex_col justify-center items-center  input_btn bg-transparent text-white font-semibold"
+              >
+                Back
+                <div className="w-[24px] border-[1px] border-white" />
+              </button>
             </form>
           </div>
         </section>

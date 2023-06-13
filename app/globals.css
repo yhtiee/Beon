@@ -15,7 +15,6 @@ body {
     radial-gradient(at 23% 20%, #bd00ff 0px, transparent 70%);
 
   filter: blur(170.5px);
-  opacity: 0.26;
   height: 50%;
   top: 4rem;
 }
@@ -40,10 +39,10 @@ body {
 
 /* Form styles */
 .input_text {
-  @apply rounded-[5px] w-[95%] h-[46px] bg-[#2F2F2F] border-[1px] border-[#CBD2E0] p-[6px] mb-2;
+  @apply rounded-[5px] w-[100%] h-[46px] bg-[#2F2F2F] border-[1px] border-[#CBD2E0] p-[6px] mb-2 focus:border-[#00ef8b] focus:outline-none;
 }
 .input_btn {
-  @apply rounded-[5px] w-[95%] h-[46px] bg-[#00ef8b] text-black mt-6;
+  @apply rounded-[5px] w-[100%] h-[46px] mt-6;
 }
 
 /* Custom Gradient */
@@ -85,6 +84,10 @@ body {
   border: 1px solid #00ef8b;
 }
 
+.dashboard_gradient {
+  background: linear-gradient(180deg, #242424 0%, rgba(36, 36, 36, 0) 100%);
+}
+
 /* Animations */
 .border_animate {
 }
@@ -94,23 +97,21 @@ body {
   animation: bgGradientAnimation 4s ease-in-out infinite forwards;
 }
 
+/* frames */
 @keyframes bgGradientAnimation {
   0% {
     transform: translate(60px, 50px);
   }
-  10% {
+  30% {
     transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-60px, -50px);
   }
   60% {
+    transform: translate(-60px, -50px);
+  }
+  80% {
     transform: translate(0, 0);
   }
-
   100% {
     transform: translate(60px, 50px);
   }
 }
-
-/* frames */
