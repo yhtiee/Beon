@@ -1,12 +1,14 @@
+"use client";
+
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 
-export const metadata = {
-  title: "Beon",
-  description: "Identify ideal ambassadors for your project's niche.",
-};
+// export const metadata = {
+//   title: "Beon",
+//   description: "Identify ideal ambassadors for your project's niche.",
+// };
 
 export default function RootLayout({ children }) {
   const noNavBar = ["/"];

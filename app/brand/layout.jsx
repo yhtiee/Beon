@@ -3,7 +3,7 @@
 import SideBar from "@/components/SideBar";
 import { usePathname } from "next/navigation";
 
-export default function ProjectLayout({ children }) {
+export default function BrandLayout({ children }) {
   const pathName = usePathname();
   const noSideBar = ["/brand/sign-up"];
   const isSideBarNeeded = noSideBar.includes(pathName);

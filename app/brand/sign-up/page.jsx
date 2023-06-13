@@ -5,7 +5,7 @@ import { BsExclamationCircle } from "react-icons/bs";
 import { RiArrowDownSLine, RiCloseLine } from "react-icons/ri";
 import { niche } from "@/constants";
 
-const page = () => {
+const BrandSignUp = () => {
   const [page, setPage] = useState(1);
   const [showNicheOps, setShowNicheOps] = useState(false);
   const [selectedNicheOps, setSelectedNicheOps] = useState([]);
@@ -230,4 +230,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BrandSignUp;

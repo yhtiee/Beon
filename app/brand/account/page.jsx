@@ -9,7 +9,7 @@ import { VscUnverified } from "react-icons/vsc";
 import { RiArrowDownSLine, RiCloseLine } from "react-icons/ri";
 import { niche } from "@/constants";
 
-const brandAccount = () => {
+const BrandAccount = () => {
   const [showNicheOps, setShowNicheOps] = useState(false);
   const [selectedNicheOps, setSelectedNicheOps] = useState([]);
 
@@ -242,4 +242,4 @@ const brandAccount = () => {
   );
 };
 
-export default brandAccount;
+export default BrandAccount;
