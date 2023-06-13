@@ -1,4 +1,4 @@
-const ambassadorDashboard = () => {
+const AmbassadorDashboard = () => {
   return (
     <section>
       
@@ -6,4 +6,4 @@ const ambassadorDashboard = () => {
   )
 }
 
-export default ambassadorDashboard
+export default AmbassadorDashboard

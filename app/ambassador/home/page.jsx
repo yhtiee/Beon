@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IoNotificationsOutline } from "react-icons/io5";
 
-const ambassadorHome = () => {
+const AmbassadorHome = () => {
   return (
     <div className="dashboard_gradient border-[1px] my-7 p-5 rounded-md border-[#00ef8b] w-[94%]">
       {/* User Avatar & Notification status */}
@@ -91,4 +91,4 @@ const ambassadorHome = () => {
   );
 };
 
-export default ambassadorHome;
+export default AmbassadorHome;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { BsExclamationCircle } from "react-icons/bs";
 
-const page = () => {
+const AmbassadorSignUp = () => {
   const [page, setPage] = useState(1);
 
   const [ambassador, setAmbassador] = useState({
@@ -168,4 +168,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AmbassadorSignUp;
