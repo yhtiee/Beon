@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const SideBar = () => {
   return (
-    <section className="h-[100vh] w-[25%] relative flex_col items-center justify-center">
-      <div className="dashboard_gradient flex_col items-stretch border-[1px] border-[#00ef8b] h-[90%] w-[248px] px-[40px] py-[36px] rounded-md">
+    <section className="h-[100vh] w-[20%] fixed flex_col items-center justify-center">
+      <div className="dashboard_gradient flex_col items-stretch border-[1px] border-[#00ef8b] h-[90%] w-[218px] px-[40px] py-[36px] rounded-md">
         <div className="text-[17px]">
           <h1 className="font-bold text-[45px]">beon.</h1>
           <Link
