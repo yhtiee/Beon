@@ -98,7 +98,7 @@ const ambassadorAccount = () => {
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="John"
+                placeholder="johndoe1@gmail.com"
               />
             </div>
             <div className="w-[47%]">
@@ -158,7 +158,7 @@ const ambassadorAccount = () => {
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="John"
+                placeholder="https://www.twitter.com/johndoe"
               />
             </div>
             <div className="w-[47%]">
@@ -173,7 +173,7 @@ const ambassadorAccount = () => {
                 //   setAmbassador({ ...ambassador, twitter: e.target.value })
                 // }
                 type="text"
-                placeholder="Doe"
+                placeholder="https://www.linked.in/johndoe"
               />
             </div>
           </div>
