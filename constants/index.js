@@ -20,3 +20,7 @@ export const featuresList = [
     desc: "Empower brands with robust search and filtering options, allowing them to narrow down their search based on specific criteria",
   },
 ];
+
+export const niche = ["NFTs", "Gaming", "DAO", "DeFi"];
+
+export const ambassadorNavLinks = ["Home", "Dashboard", "Account", "Wallet"];
