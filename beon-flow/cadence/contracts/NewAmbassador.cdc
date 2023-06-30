@@ -1,4 +1,4 @@
-pub contract AmbassadorProfile {
+pub contract NewAmbassadorProfile {
 
   pub let publicPath: PublicPath
   pub let privatePath: StoragePath
@@ -16,7 +16,7 @@ pub contract AmbassadorProfile {
     pub fun getDiscordUserName(): String
     pub fun getLinkedinUserName(): String
     pub fun getInstagramUserName() : String
-    pub fun asReadOnly(): AmbassadorProfile.ReadOnly
+    pub fun asReadOnly(): NewAmbassadorProfile.ReadOnly
   }
 
   pub resource interface Owner {
@@ -89,7 +89,7 @@ pub contract AmbassadorProfile {
       self.twitterProfileLink = ""
       self.instagramProfileLink = ""
       self.linkedinProfileLink = ""
-      self.linkedinProfileLink = ""
+      self.discordProfileLink = ""
       self.bio = ""
       self.workExperience = ""
       self.twitterUsername = ""
@@ -146,8 +146,8 @@ pub contract AmbassadorProfile {
       self.workExperience =workExperience
     }
 
-    pub fun asReadOnly(): AmbassadorProfile.ReadOnly {
-      return AmbassadorProfile.ReadOnly(
+    pub fun asReadOnly(): NewAmbassadorProfile.ReadOnly {
+      return NewAmbassadorProfile.ReadOnly(
         address : self.owner?.address,
         firstName: self.getFirstName(),
         lastName: self.getLastName(),
@@ -159,7 +159,7 @@ pub contract AmbassadorProfile {
         linkedinProfileLink: self.getLinkedinProfileLink(),
         instagramUsername: self.getInstagramUserName(),
         linkedinUserName: self.getLinkedinUserName(),
-        discordUserName: self.discordUserName(),
+        discordUserName: self.getDiscordUserName(),
         twitterUsername: self.getTwitterUserName()
       )
     }
@@ -197,24 +197,24 @@ pub contract AmbassadorProfile {
     }
   }
 
-  pub fun new(): @AmbassadorProfile.Base {
+  pub fun new(): @NewAmbassadorProfile.Base {
     return <- create Base()
   }
 
   pub fun check(_ address: Address): Bool {
     return getAccount(address)
-      .getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath)
+      .getCapability<&{NewAmbassadorProfile.Public}>(NewAmbassadorProfile.publicPath)
       .check()
   }
 
-  pub fun fetch(_ address: Address): &{AmbassadorProfile.Public} {
+  pub fun fetch(_ address: Address): &{NewAmbassadorProfile.Public} {
     return getAccount(address)
-      .getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath)
+      .getCapability<&{NewAmbassadorProfile.Public}>(NewAmbassadorProfile.publicPath)
       .borrow()!
   }
 
-  pub fun read(_ address: Address): AmbassadorProfile.ReadOnly? {
-    if let profile: &AnyResource{AmbassadorProfile.Public} = getAccount(address).getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath).borrow() {
+  pub fun read(_ address: Address): NewAmbassadorProfile.ReadOnly? {
+    if let profile: &AnyResource{NewAmbassadorProfile.Public} = getAccount(address).getCapability<&{NewAmbassadorProfile.Public}>(NewAmbassadorProfile.publicPath).borrow() {
       return profile.asReadOnly()
     } else {
       return nil
@@ -222,8 +222,8 @@ pub contract AmbassadorProfile {
   }
 
   init() {
-    self.publicPath = /public/profile
-    self.privatePath = /storage/profile
+    self.publicPath = /public/newprofile
+    self.privatePath = /storage/newprofile
 
     self.account.save(<- self.new(), to: self.privatePath)
     self.account.link<&Base{Public}>(self.publicPath, target: self.privatePath)

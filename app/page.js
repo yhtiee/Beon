@@ -5,11 +5,22 @@ import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { featuresList } from "@/constants";
 import AuthModal from "@/components/AuthModal";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({ loggedIn: null });
+
+  const { push } = useRouter();
+  // fcl.unauthenticate();
+
+  useEffect(() => {
+    if (user.loggedIn == true){
+      push('/brand/sign-up');
+    }
+  }, [user]);
+  
 
   fcl
     .config()
@@ -37,6 +48,8 @@ export default function Home() {
       document.removeEventListener("scroll", handleClick);
     };
   }, [modal]);
+
+  console.log(user)
 
   return (
     <section className="flex flex-col items-center justify-center relative">
