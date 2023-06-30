@@ -5,14 +5,15 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 
-export const metadata = {
-  title: "Beon",
-  description: "Identify ideal ambassadors for your brand's niche.",
-};
+// export const metadata = {
+//   title: "Beon",
+//   description: "Identify ideal ambassadors for your project's niche.",
+// };
 
 export default function RootLayout({ children }) {
+  const noNavBar = ["/"];
   const pathName = usePathname();
-  const isLayoutNeeded = pathName === "/ambassador/sign-up";
+  const isLayoutNeeded = noNavBar.includes(pathName);
   return (
     <html lang="en">
       <head>
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <main className="app">
-          {!isLayoutNeeded && <Nav />}
+          {isLayoutNeeded && <Nav />}
           {children}
           <Footer />
         </main>
