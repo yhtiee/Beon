@@ -1,10 +1,10 @@
 "use client";
 import * as fcl from "@onflow/fcl";
-
 import { FaRegBuilding } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const AuthModal = () => {
   fcl
@@ -18,8 +18,11 @@ const AuthModal = () => {
   // anywhere on the page
   // fcl.unauthenticate();
 
-  // const [user, setUser] = useState({ loggedIn: null });
-  // useEffect(() => fcl.currentUser.subscribe(setUser), []);
+  const [user, setUser] = useState({ loggedIn: null });
+  useEffect(() => fcl.currentUser.subscribe(setUser), []);
+
+  console.log(user)
+
 
   return (
     <div>
@@ -35,30 +38,22 @@ const AuthModal = () => {
 
         <div className="flex flex-row gap-6 justify-center mb-6">
           <div
-            onClick={() => fcl.signUp}
+            onClick={fcl.signUp}
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            <Link
-              href="/brand/sign-up"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            
               <FaRegBuilding size={80} color="#00ef8b" />
               <p className="pt-5">Flow Project</p>
-            </Link>
+            
           </div>
           <div
-            onClick={() => fcl.signUp}
+            onClick={fcl.signUp}
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            <Link
-              href="/ambassador/sign-up"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            
               <RiAccountCircleLine size={80} color="#00ef8b" />
               <p className="pt-5">Ambassador</p>
-            </Link>
+            
           </div>
         </div>
         <hr className="w-[218px] h-[1px]" />
