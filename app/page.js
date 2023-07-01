@@ -5,11 +5,27 @@ import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { featuresList } from "@/constants";
 import AuthModal from "@/components/AuthModal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({ loggedIn: null });
+  const [accType, setAccType] = useState("");
+
+  const { push } = useRouter();
+  // fcl.unauthenticate();
+
+  const handleSignup = (newState) => {
+    setAccType(newState);
+    push(`/${newState}/sign-up`);
+  };
+
+  useEffect(() => {
+    if (user.loggedIn == true) {
+      handleSignup;
+    }
+  }, [user]);
 
   fcl
     .config()
@@ -37,6 +53,8 @@ export default function Home() {
       document.removeEventListener("scroll", handleClick);
     };
   }, [modal]);
+
+  console.log(user);
 
   return (
     <section className="flex flex-col items-center justify-center relative">
@@ -109,7 +127,7 @@ export default function Home() {
         </div>
       </section>
 
-      {modal && <AuthModal />}
+      {modal && <AuthModal accType={accType} handleSignup={handleSignup} />}
 
       <section className="bg-[#080708] w-[100%] h-[279px] flex flex-col items-center justify-center relative">
         <div className="bg_gradient opacity-100 absolute w-[70vw] bg_gradient_animate" />
