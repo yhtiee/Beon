@@ -6,7 +6,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const AuthModal = () => {
+const AuthModal = ({ accType, handleSignup }) => {
   fcl
     .config()
     .put("flow.network", "testnet")
@@ -18,11 +18,16 @@ const AuthModal = () => {
   // anywhere on the page
   // fcl.unauthenticate();
 
+  const handleChange = (e) => {
+    fcl.signUp();
+    const newState = e.currentTarget.getAttribute("tag"); // Modify the state in the child component
+    handleSignup(newState); // Call the update function passed from the parent
+  };
+
   const [user, setUser] = useState({ loggedIn: null });
   useEffect(() => fcl.currentUser.subscribe(setUser), []);
 
-  console.log(user)
-
+  console.log(user);
 
   return (
     <div>
@@ -38,22 +43,20 @@ const AuthModal = () => {
 
         <div className="flex flex-row gap-6 justify-center mb-6">
           <div
-            onClick={fcl.signUp}
+            onClick={handleChange}
+            tag="brand"
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            
-              <FaRegBuilding size={80} color="#00ef8b" />
-              <p className="pt-5">Flow Project</p>
-            
+            <FaRegBuilding size={80} color="#00ef8b" />
+            <p className="pt-5">Flow Project</p>
           </div>
           <div
-            onClick={fcl.signUp}
+            onClick={handleChange}
+            tag="ambassador"
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            
-              <RiAccountCircleLine size={80} color="#00ef8b" />
-              <p className="pt-5">Ambassador</p>
-            
+            <RiAccountCircleLine size={80} color="#00ef8b" />
+            <p className="pt-5">Ambassador</p>
           </div>
         </div>
         <hr className="w-[218px] h-[1px]" />
