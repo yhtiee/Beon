@@ -1,23 +1,32 @@
 "use client";
 import * as fcl from "@onflow/fcl";
-
+import "../flow/config";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { featuresList } from "@/constants";
 import AuthModal from "@/components/AuthModal";
 import { useRouter } from 'next/navigation';
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({ loggedIn: null });
+  const { currentUser, profileExists, logOut, logIn, signUp, createProfile, loadProfile} = useAuth()
 
   const { push } = useRouter();
   // fcl.unauthenticate();
 
   useEffect(() => {
     if (user.loggedIn == true){
-      push('/brand/sign-up');
+      // push('/brand/sign-up');
+      loadProfile()
+      if (user.loggedIn == true && profileExists == false){
+        setModal(true)
+      }
+      else{
+        console.log("has a profile")
+      }
     }
   }, [user]);
   
@@ -68,7 +77,7 @@ export default function Home() {
           <Button
             type="Sign Up"
             style="secondary"
-            onClick={() => setModal(!modal)}
+            onClick={fcl.signUp}
           />
         </div>
       </article>

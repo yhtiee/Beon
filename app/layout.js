@@ -4,6 +4,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
+import AuthProvider from "@/contexts/AuthContext";
+import TransactionProvider from "@/contexts/TransactionContext";
 
 // export const metadata = {
 //   title: "Beon",
@@ -31,7 +33,11 @@ export default function RootLayout({ children }) {
       <body>
         <main className="app">
           {isLayoutNeeded && <Nav />}
-          {children}
+          <TransactionProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+          </TransactionProvider>
           <Footer />
         </main>
       </body>
