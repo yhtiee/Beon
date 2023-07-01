@@ -1,5 +1,5 @@
 "use client";
-
+import "../../flow/config"
 import SideBar from "@/components/SideBar";
 import { usePathname } from "next/navigation";
 
