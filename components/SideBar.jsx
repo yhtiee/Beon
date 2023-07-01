@@ -3,8 +3,13 @@ import { RxDashboard } from "react-icons/rx";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { BiLogOut, BiWallet } from "react-icons/bi";
 import Link from "next/link";
+import "../flow/config"
+import { useAuth } from "@/contexts/AuthContext";
 
 const SideBar = () => {
+
+  const {logOut} = useAuth()
+
   return (
     <section className="h-[100vh] w-[20%] fixed flex_col items-center justify-center">
       <div className="dashboard_gradient flex_col items-stretch border-[1px] border-[#00ef8b] h-[90%] w-[218px] px-[40px] py-[36px] rounded-md">
@@ -40,6 +45,7 @@ const SideBar = () => {
           </Link>
         </div>
         <Link
+          onClick={() => logOut()}
           href="/"
           className="flex_row items-center mt-auto p-2 text-[17px] hover:text-[#00ef8b]"
         >

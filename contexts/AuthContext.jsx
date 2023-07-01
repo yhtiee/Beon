@@ -8,6 +8,8 @@ import {
 } from "react";
 import { useTransaction } from "./TransactionContext";
 
+
+
 export const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);

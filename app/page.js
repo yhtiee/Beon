@@ -12,7 +12,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({ loggedIn: null });
-  const { currentUser, profileExists, logOut, logIn, signUp, createProfile, loadProfile} = useAuth()
+  const { currentUser, profileExists, logOut, logIn, signUp, createProfile, loadProfile, userProfile} = useAuth()
 
   const { push } = useRouter();
   // fcl.unauthenticate();
@@ -24,11 +24,11 @@ export default function Home() {
       if (user.loggedIn == true && profileExists == false){
         setModal(true)
       }
-      else{
-        console.log("has a profile")
+      else if (user.loggedIn == true && userProfile.firstName){
+        push("/ambassador/home")
       }
     }
-  }, [user]);
+  }, [user, profileExists]);
   
 
   fcl

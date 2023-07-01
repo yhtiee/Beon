@@ -13,15 +13,13 @@
 	},
 
 	"contracts": {
-		"Ambassador":  "./cadence/contracts/Ambassador.cdc",
-		"NewAmbassador":  "./cadence/contracts/NewAmbassador.cdc"
+		"NewAmbassador":  "./cadence/contracts/NewAmbassadorProfile.cdc"
 
 	},
 
 	"deployments": {
 	  "testnet": {
 		"beon-account": [
-		  "Ambassador",
 		  "NewAmbassador"
 		]
 	  }

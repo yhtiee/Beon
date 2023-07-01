@@ -30,7 +30,7 @@ const AmbassadorSignUp = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log(ambassador)
     updateProfile(ambassador.firstName, ambassador.lastName, ambassador.twitter, ambassador.discord)
   };

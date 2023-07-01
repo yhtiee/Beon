@@ -1,10 +1,11 @@
-pub contract AmbassadorProfile {
+pub contract NewAmbassador {
 
   pub let publicPath: PublicPath
   pub let privatePath: StoragePath
 
   pub resource interface Public {
     pub fun getFirstName(): String
+    pub fun getRole(): String
     pub fun getLastName(): String
     pub fun getTwitterProfileLink(): String
     pub fun getInstagramProfileLink(): String
@@ -16,11 +17,12 @@ pub contract AmbassadorProfile {
     pub fun getDiscordUserName(): String
     pub fun getLinkedinUserName(): String
     pub fun getInstagramUserName() : String
-    pub fun asReadOnly(): AmbassadorProfile.ReadOnly
+    pub fun asReadOnly(): NewAmbassador.ReadOnly
   }
 
   pub resource interface Owner {
     pub fun getFirstName(): String
+    pub fun getRole(): String
     pub fun getLastName(): String
     pub fun getTwitterProfileLink(): String
     pub fun getInstagramProfileLink(): String
@@ -70,6 +72,7 @@ pub contract AmbassadorProfile {
 
   pub resource Base: Owner, Public {
     access(self) var firstName: String
+    access(self) var role: String
     access(self) var lastName: String
     access(self) var twitterProfileLink: String
     access(self) var instagramProfileLink: String
@@ -89,16 +92,18 @@ pub contract AmbassadorProfile {
       self.twitterProfileLink = ""
       self.instagramProfileLink = ""
       self.linkedinProfileLink = ""
-      self.linkedinProfileLink = ""
+      self.discordProfileLink = ""
       self.bio = ""
       self.workExperience = ""
       self.twitterUsername = ""
       self.instagramUsername = ""
       self.linkedinUserName = ""
       self.discordUserName = ""
+      self.role= "ambassador"
     }
 
     pub fun getFirstName(): String { return self.firstName}
+    pub fun getRole(): String { return self.role}
     pub fun getLastName(): String { return self.lastName}
     pub fun getInstagramProfileLink(): String { return self.instagramProfileLink}
     pub fun getTwitterProfileLink(): String { return self.twitterProfileLink}
@@ -146,12 +151,13 @@ pub contract AmbassadorProfile {
       self.workExperience =workExperience
     }
 
-    pub fun asReadOnly(): AmbassadorProfile.ReadOnly {
-      return AmbassadorProfile.ReadOnly(
+    pub fun asReadOnly(): NewAmbassador.ReadOnly {
+      return NewAmbassador.ReadOnly(
         address : self.owner?.address,
         firstName: self.getFirstName(),
         lastName: self.getLastName(),
         bio : self.getBio(),
+        role: self.getRole(),
         workExperience : self.getWorkExperience(),
         twitterProfileLink: self.getTwitterProfileLink(),
         instagramProfileLink: self.getInstagramProfileLink(),
@@ -159,7 +165,7 @@ pub contract AmbassadorProfile {
         linkedinProfileLink: self.getLinkedinProfileLink(),
         instagramUsername: self.getInstagramUserName(),
         linkedinUserName: self.getLinkedinUserName(),
-        discordUserName: self.discordUserName(),
+        discordUserName: self.getDiscordUserName(),
         twitterUsername: self.getTwitterUserName()
       )
     }
@@ -168,6 +174,7 @@ pub contract AmbassadorProfile {
   pub struct ReadOnly {
     pub let address: Address?
     pub let firstName: String
+    pub let role: String
     pub let lastName: String
     pub let twitterProfileLink : String
     pub let instagramProfileLink: String
@@ -180,11 +187,12 @@ pub contract AmbassadorProfile {
     pub let bio: String
     pub let workExperience: String
 
-    init(address:Address?, firstName:String, lastName:String, twitterProfileLink:String, instagramUsername:String, instagramProfileLink:String, twitterUsername:String, bio:String, workExperience:String, linkedinUserName: String, discordUserName: String, linkedinProfileLink: String, discordProfileLink: String){
+    init(address:Address?, firstName:String, lastName:String, twitterProfileLink:String, instagramUsername:String, instagramProfileLink:String, twitterUsername:String, bio:String, workExperience:String, linkedinUserName: String, discordUserName: String, linkedinProfileLink: String, discordProfileLink: String, role: String){
       self.address = address
       self.firstName = firstName
       self.lastName = lastName
       self.bio = bio
+      self.role = role
       self.workExperience = workExperience
       self.instagramProfileLink = instagramProfileLink
       self.discordProfileLink = discordProfileLink
@@ -197,24 +205,24 @@ pub contract AmbassadorProfile {
     }
   }
 
-  pub fun new(): @AmbassadorProfile.Base {
+  pub fun new(): @NewAmbassador.Base {
     return <- create Base()
   }
 
   pub fun check(_ address: Address): Bool {
     return getAccount(address)
-      .getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath)
+      .getCapability<&{NewAmbassador.Public}>(NewAmbassador.publicPath)
       .check()
   }
 
-  pub fun fetch(_ address: Address): &{AmbassadorProfile.Public} {
+  pub fun fetch(_ address: Address): &{NewAmbassador.Public} {
     return getAccount(address)
-      .getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath)
+      .getCapability<&{NewAmbassador.Public}>(NewAmbassador.publicPath)
       .borrow()!
   }
 
-  pub fun read(_ address: Address): AmbassadorProfile.ReadOnly? {
-    if let profile: &AnyResource{AmbassadorProfile.Public} = getAccount(address).getCapability<&{AmbassadorProfile.Public}>(AmbassadorProfile.publicPath).borrow() {
+  pub fun read(_ address: Address): NewAmbassador.ReadOnly? {
+    if let profile: &AnyResource{NewAmbassador.Public} = getAccount(address).getCapability<&{NewAmbassador.Public}>(NewAmbassador.publicPath).borrow() {
       return profile.asReadOnly()
     } else {
       return nil
@@ -222,8 +230,8 @@ pub contract AmbassadorProfile {
   }
 
   init() {
-    self.publicPath = /public/profile
-    self.privatePath = /storage/profile
+    self.publicPath = /public/ambassadorprofile
+    self.privatePath = /storage/ambassadorprofile
 
     self.account.save(<- self.new(), to: self.privatePath)
     self.account.link<&Base{Public}>(self.publicPath, target: self.privatePath)

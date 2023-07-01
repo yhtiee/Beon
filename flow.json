@@ -1,0 +1,29 @@
+{
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+
+	"accounts": {
+		"beon-account": {
+		  "address": "0xfad09e6732db970f",
+		  "key": "34ad963e09752e29a6e20bb06823187943bb8f3d92a91afaf3b2e3243f1a3fb6"
+		}
+	  },
+  
+	  "contracts": {
+		  "Ambassador":  "./beon-flow/cadence/contracts/Ambassador.cdc",
+		  "NewAmbassador":  "./beon-flow/cadence/contracts/NewAmbassador.cdc"
+	  },
+  
+	  "deployments": {
+		"testnet": {
+		  "beon-account": [
+			"Ambassador",
+			"NewAmbassador"
+		  ]
+		}
+	  }
+}
