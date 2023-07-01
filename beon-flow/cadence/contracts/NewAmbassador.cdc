@@ -5,6 +5,7 @@ pub contract NewAmbassadorProfile {
 
   pub resource interface Public {
     pub fun getFirstName(): String
+    pub fun getRole(): String
     pub fun getLastName(): String
     pub fun getTwitterProfileLink(): String
     pub fun getInstagramProfileLink(): String
@@ -21,6 +22,7 @@ pub contract NewAmbassadorProfile {
 
   pub resource interface Owner {
     pub fun getFirstName(): String
+    pub fun getRole(): String
     pub fun getLastName(): String
     pub fun getTwitterProfileLink(): String
     pub fun getInstagramProfileLink(): String
@@ -70,6 +72,7 @@ pub contract NewAmbassadorProfile {
 
   pub resource Base: Owner, Public {
     access(self) var firstName: String
+    access(self) var role: String
     access(self) var lastName: String
     access(self) var twitterProfileLink: String
     access(self) var instagramProfileLink: String
@@ -96,9 +99,11 @@ pub contract NewAmbassadorProfile {
       self.instagramUsername = ""
       self.linkedinUserName = ""
       self.discordUserName = ""
+      self.role= "ambassador"
     }
 
     pub fun getFirstName(): String { return self.firstName}
+    pub fun getRole(): String { return self.role}
     pub fun getLastName(): String { return self.lastName}
     pub fun getInstagramProfileLink(): String { return self.instagramProfileLink}
     pub fun getTwitterProfileLink(): String { return self.twitterProfileLink}
@@ -152,6 +157,7 @@ pub contract NewAmbassadorProfile {
         firstName: self.getFirstName(),
         lastName: self.getLastName(),
         bio : self.getBio(),
+        role: self.getRole(),
         workExperience : self.getWorkExperience(),
         twitterProfileLink: self.getTwitterProfileLink(),
         instagramProfileLink: self.getInstagramProfileLink(),
@@ -168,6 +174,7 @@ pub contract NewAmbassadorProfile {
   pub struct ReadOnly {
     pub let address: Address?
     pub let firstName: String
+    pub let role: String
     pub let lastName: String
     pub let twitterProfileLink : String
     pub let instagramProfileLink: String
@@ -180,11 +187,12 @@ pub contract NewAmbassadorProfile {
     pub let bio: String
     pub let workExperience: String
 
-    init(address:Address?, firstName:String, lastName:String, twitterProfileLink:String, instagramUsername:String, instagramProfileLink:String, twitterUsername:String, bio:String, workExperience:String, linkedinUserName: String, discordUserName: String, linkedinProfileLink: String, discordProfileLink: String){
+    init(address:Address?, firstName:String, lastName:String, twitterProfileLink:String, instagramUsername:String, instagramProfileLink:String, twitterUsername:String, bio:String, workExperience:String, linkedinUserName: String, discordUserName: String, linkedinProfileLink: String, discordProfileLink: String, role: String){
       self.address = address
       self.firstName = firstName
       self.lastName = lastName
       self.bio = bio
+      self.role = role
       self.workExperience = workExperience
       self.instagramProfileLink = instagramProfileLink
       self.discordProfileLink = discordProfileLink

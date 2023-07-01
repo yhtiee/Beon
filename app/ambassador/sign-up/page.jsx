@@ -1,17 +1,20 @@
 "use client";
+import "../../../flow/config"
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { BsExclamationCircle } from "react-icons/bs";
+import { useAuth } from "@/contexts/AuthContext";
 
 const AmbassadorSignUp = () => {
   const [page, setPage] = useState(1);
+  const {updateProfile} = useAuth()
 
   const [ambassador, setAmbassador] = useState({
     firstName: "",
     lastName: "",
     twitter: "",
-    instagram: "",
+    discord: "",
   });
 
   /* Handles the btn to previous page(1) */
@@ -27,7 +30,9 @@ const AmbassadorSignUp = () => {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+    console.log(ambassador)
+    updateProfile(ambassador.firstName, ambassador.lastName, ambassador.twitter, ambassador.discord)
   };
 
   return (
@@ -133,18 +138,18 @@ const AmbassadorSignUp = () => {
                 type="text"
                 placeholder="https://twitter.com/johndoe"
               />
-              <label htmlFor="instagram" className="text-signIn mt-3">
-                Instagram
+              <label htmlFor="discord" className="text-signIn mt-3">
+                Discord
               </label>
               <input
                 className="input_text"
-                name="instagram"
-                value={ambassador.instagram}
+                name="discord"
+                value={ambassador.discord}
                 onChange={(e) =>
-                  setAmbassador({ ...ambassador, instagram: e.target.value })
+                  setAmbassador({ ...ambassador, discord: e.target.value })
                 }
                 type="text"
-                placeholder="https://www.linkedin.com/in/john-doe"
+                placeholder="johndoe"
               />
               <Link
                 onClick={handleSubmit}

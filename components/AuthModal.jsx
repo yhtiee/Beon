@@ -5,8 +5,10 @@ import { RiAccountCircleLine } from "react-icons/ri";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
-const AuthModal = ({ accType, handleSignup }) => {
+const AuthModal = () => {
+  let {createProfile} = useAuth()
   fcl
     .config()
     .put("flow.network", "testnet")
@@ -32,9 +34,6 @@ const AuthModal = ({ accType, handleSignup }) => {
   return (
     <div>
       <div className="bg-[#242424] w-[550px] h-[400px] flex flex-col items-center justify-center rounded-[10px] p-10 fixed top-[15%] left-[28%] z-40 border-[1px] border-[#00ef8b] drop-shadow-xl">
-        <h2 className="font-hero text-[20px] font-semibold mb-5 mt-3">
-          Sign Up as
-        </h2>
         <AiFillCloseCircle
           size={30}
           color="#00ef8b"
@@ -47,16 +46,22 @@ const AuthModal = ({ accType, handleSignup }) => {
             tag="brand"
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            <FaRegBuilding size={80} color="#00ef8b" />
-            <p className="pt-5">Flow Project</p>
+            
+            <Link href="/brand/sign-up">
+               <FaRegBuilding size={80} color="#00ef8b" />
+              <p className="pt-5">Flow Project</p>
+            </Link>
+            
           </div>
           <div
-            onClick={handleChange}
-            tag="ambassador"
+            onClick={() => createProfile()}
             className="bg-[#363636] hover:border-[#00ef8b] hover:border-[1px] cursor-pointer rounded-[5px] w-[200px] h-[200px] flex flex-col items-center justify-center"
           >
-            <RiAccountCircleLine size={80} color="#00ef8b" />
-            <p className="pt-5">Ambassador</p>
+            <Link href="/ambassador/sign-up">
+              <RiAccountCircleLine size={80} color="#00ef8b" />
+              <p className="pt-5">Ambassador</p>
+            </Link>
+           
           </div>
         </div>
         <hr className="w-[218px] h-[1px]" />
