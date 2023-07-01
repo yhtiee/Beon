@@ -17,6 +17,11 @@ export default function Home() {
   const { push } = useRouter();
   // fcl.unauthenticate();
 
+  const handleSignup = (newState) => {
+    setAccType(newState);
+    push(`/${newState}/sign-up`);
+  };
+
   useEffect(() => {
     if (user.loggedIn == true){
       // push('/brand/sign-up');
@@ -29,7 +34,6 @@ export default function Home() {
       }
     }
   }, [user]);
-  
 
   fcl
     .config()
@@ -58,7 +62,7 @@ export default function Home() {
     };
   }, [modal]);
 
-  console.log(user)
+  console.log(user);
 
   return (
     <section className="flex flex-col items-center justify-center relative">
